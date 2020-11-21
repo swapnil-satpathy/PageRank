@@ -57,7 +57,7 @@ void pagerank_calculate(vector <struct pagenode *> &nodes){
     double damp=0.85;
     //double threshold=(0.7/100)*(count);//Threshold is choosen according to the accuracy chosen by the application.This calculation used is according to the research paper.It will also reflect the number of iterations required for the pagerank computation to converge...
     double threshold=(0.7/100)*count;
-    double constant=(double)(1-damp)/count;
+    double teleport=(double)(1-damp)/count;
     
     for(auto x:nodes){
         x->pagerank=(double)1/count;
@@ -81,7 +81,7 @@ void pagerank_calculate(vector <struct pagenode *> &nodes){
     }
         condition=0;
         for(auto x:nodes){
-            parallel[x]=constant+damp*parallel[x];
+            parallel[x]=teleport+damp*parallel[x];
             if(abs(parallel[x]-(x->pagerank))>threshold)
                 condition=1;
             x->pagerank=parallel[x];
